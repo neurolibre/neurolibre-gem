@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-require File.expand_path "#{File.dirname(__FILE__)}/lib/theoj/version"
+require File.expand_path "#{File.dirname(__FILE__)}/lib/neurolibre/version"
 
 Gem::Specification.new do |s|
-  s.name = "theoj"
+  s.name = "neurolibre"
   s.version = Theoj::VERSION
   s.platform = Gem::Platform::RUBY
   s.date = Time.now.strftime('%Y-%m-%d')
   s.authors = ["Juanjo Bazán"]
-  s.homepage = 'http://github.com/xuanxu/theoj'
+  s.homepage = 'http://github.com/neurolibre/neurolibre-gem'
   s.license = "MIT"
-  s.summary = "Editorial objects used by the Open Journals"
-  s.description = "A library to manage editorial objects used in the Open Journals' review process"
+  s.summary = "Editorial objects used by NeuroLibre"
+  s.description = "A library to manage editorial objects used in the NeuroLibre's moderation and screening process"
   s.metadata = {
-    "bug_tracker_uri"   => "https://github.com/xuanxu/theoj/issues",
-    "changelog_uri"     => "https://github.com/xuanxu/theoj/blob/main/CHANGELOG.md",
-    "documentation_uri" => "https://www.rubydoc.info/gems/theoj",
+    "bug_tracker_uri"   => "https://github.com/neurolibre/neurolibre-gem/issues",
+    "changelog_uri"     => "https://github.com/neurolibre/neurolibre-gem/blob/main/CHANGELOG.md",
+    "documentation_uri" => "https://www.rubydoc.info/gems/neurolibre",
     "homepage_uri"      => s.homepage,
     "source_code_uri"   => s.homepage
   }

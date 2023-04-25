@@ -63,7 +63,7 @@ module Theoj
     end
 
     def default_data
-      Theoj::JOURNALS_DATA[:joss]
+      Theoj::JOURNALS_DATA[:neurolibre]
     end
 
     def parsed_launch_date

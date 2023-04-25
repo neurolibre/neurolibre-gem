@@ -42,15 +42,25 @@ module Theoj
       reviews_repository: "ReScience/ReScienceC-reviews",
       deposit_url: "https://resciencec.theoj.org/papers/api_deposit"
     },
+    neurolibre: {
+      doi_prefix: "10.55458",
+      url: "https://neurolibre.org/",
+      name: "NeuroLibre",
+      alias: "neurolibre",
+      launch_date: "2021-01-01",
+      papers_repository: "neurolibre/preprints",
+      reviews_repository: "neurolibre/neurolibre-reviews",
+      deposit_url: "https://neurolibre-neo.herokuapp.com/papers/api_deposit"
+    },
     test_journal: {
-      doi_prefix: "10.21105",
-      url: "https://test.joss.theoj.org/",
-      name: "Test Journal",
-      alias: "test_journal",
-      launch_date: "2016-05-05",
-      papers_repository: "openjournals/joss-papers-testing",
+      doi_prefix: "10.55458",
+      url: "https://staging.neurolibre.org/",
+      name: "NeuroLibre",
+      alias: "neurolibre",
+      launch_date: "2021-01-01",
+      papers_repository: "neurolibre/neurolibre-preprints-testing",
       reviews_repository: "openjournals/joss-reviews-testing",
-      deposit_url: "https://test.joss.theoj.org/papers/api_deposit"
+      deposit_url: "https://staging.neurolibre.org/papers/api_deposit"
     }
   }
 end

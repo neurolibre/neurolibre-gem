@@ -35,9 +35,28 @@ module Theoj
       @editor ||= read_value_from_body("editor")
     end
 
-    def archive
-      @archive ||= read_value_from_body("archive")
+    #@NeuroLibre -- START
+    # Removes @archive, uses the following instead.
+    def book_exec_url
+      @book_exec_url ||= read_value_from_body("book-exec-url")
     end
+
+    def repository_archive
+      @repository_archive ||= read_value_from_body("repository-archive")
+    end
+
+    def data_archive
+      @data_archive ||= read_value_from_body("data-archive")
+    end
+
+    def book_archive
+      @book_archive ||= read_value_from_body("book-archive")
+    end
+
+    def docker_archive
+      @docker_archive ||= read_value_from_body("docker-archive")
+    end
+    #@NeuroLibre -- END
 
     def version
       @version ||= read_value_from_body("version")

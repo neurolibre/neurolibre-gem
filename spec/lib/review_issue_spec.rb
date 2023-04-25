@@ -4,13 +4,18 @@ describe Theoj::ReviewIssue do
 
   before do
     @review_issue  = Theoj::ReviewIssue.new("openjournals/reviews", 42)
+    # @NeuroLibre updated according to our reproducibility assets DOIs
     @issue = double(body: "Review Issue 42 \n "+
                          "<!--target-repository-->https://github.com/myorg/researchsoftware<!--end-target-repository-->" +
                          "<!--branch-->paperdocs<!--end-branch-->" +
                          "<!--editor-->@the-editor <!--end-editor-->" +
                          "<!--reviewers-list--> @reviewer1, reviewer2<!--end-reviewers-list-->" +
                          "<!--version-->1.33.42<!--end-version-->" +
-                         "<!--archive-->link-to-zenodo<!--end-archive-->" +
+                         "<!--book-exec-url-->reproducible-preprint-url<!--end-book-exec-url-->" +
+                         "<!--repository-archive-->repository-doi-url<!--end-repository-archive-->" +
+                         "<!--data-archive-->data-doi-url<!--end-data-archive-->" +
+                         "<!--book-archive-->book-doi-url<!--end-book-archive-->" +
+                         "<!--docker-archive-->book-doi-url<!--end-docker-archive-->" +
                          "<!--whatever-->nevermind<!--end-whatever-->" +
                          "<!--no-value-->Pending<!--end-no-value-->")
     allow(@review_issue).to receive(:issue).and_return(@issue)

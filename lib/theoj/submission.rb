@@ -18,19 +18,27 @@ module Theoj
       @paper = paper || @review_issue.paper
     end
 
-    # Create the payload to use to post for depositing with Open Journals
+    # @NeuroLibre -- START
+    # Removes archive_doi, adds neurolibre reproducibility assets DOIs.
     def deposit_payload
       {
         id: metadata_info[:review_issue_id],
         metadata: Base64.encode64(metadata_payload),
         doi: metadata_info[:doi],
-        archive_doi: metadata_info[:archive_doi],
+        repository_doi: metadata_info[:repository_doi],
+        book_exec_url: metadata_info[:book_exec_url],
+        data_doi: metadata_info[:data_doi],
+        book_doi: metadata_info[:book_doi],
+        docker_doi: metadata_info[:docker_doi],
         citation_string: citation_string,
         title: metadata_info[:title]
       }
     end
+    # @NeuroLibre -- END
 
     # Create a metadata json payload
+    # @NeuroLibre -- START
+    # Removes archive_doi, adds neurolibre reproducibility assets DOIs.
     def metadata_payload
       {
         paper: {
@@ -39,7 +47,13 @@ module Theoj
           languages: metadata_info[:languages],
           authors: metadata_info[:authors],
           doi: metadata_info[:doi],
-          archive_doi: metadata_info[:archive_doi],
+          
+          repository_doi: metadata_info[:repository_doi],
+          book_exec_url: metadata_info[:book_exec_url],
+          data_doi: metadata_info[:data_doi],
+          book_doi: metadata_info[:book_doi],
+          docker_doi: metadata_info[:docker_doi],
+
           repository_address: metadata_info[:software_repository_url],
           editor: metadata_info[:review_editor],
           reviewers: metadata_info[:reviewers].collect(&:strip),
@@ -50,8 +64,11 @@ module Theoj
         }
       }.to_json
     end
+    # @NeuroLibre -- END
 
     # Create metadata used to generate PDF/JATS outputs
+    # @NeuroLibre -- START
+    # Removes archive_doi, adds neurolibre reproducibility assets DOIs.
     def article_metadata
       {
         title: metadata_info[:title],
@@ -66,13 +83,20 @@ module Theoj
         page: metadata_info[:page],
         journal_alias: metadata_info[:journal_alias],
         software_review_url: metadata_info[:software_review_url],
-        archive_doi: metadata_info[:archive_doi],
+
+        repository_doi: metadata_info[:repository_doi],
+        book_exec_url: metadata_info[:book_exec_url],
+        data_doi: metadata_info[:data_doi],
+        book_doi: metadata_info[:book_doi],
+        docker_doi: metadata_info[:docker_doi],
+        
         citation_string: metadata_info[:citation_string],
         editor: metadata_info[:editor],
         submitted_at: metadata_info[:submitted_at],
         published_at: metadata_info[:published_at]
       }
     end
+    # @NeuroLibre -- END
 
     def metadata_info
       @metadata_info ||= all_metadata
@@ -95,6 +119,8 @@ module Theoj
       journal.paper_doi_for_id(paper_id)
     end
 
+    # @NeuroLibre -- START
+    # Removes archive_doi, adds neurolibre reproducibility assets DOIs.
     def all_metadata
       metadata = {
         title: plaintext(paper.title),
@@ -113,9 +139,18 @@ module Theoj
         journal_alias: journal.alias,
         journal_name: journal.name,
         software_review_url: journal.reviews_repository_url(review_issue.issue_id),
-        archive_doi: review_issue.archive,
+        
+        # Context changes from archive --> doi
+        repository_doi: review_issue.repository_archive,
+        data_doi: review_issue.data_archive,
+        book_doi: review_issue.book_archive,
+        docker_doi: review_issue.docker_archive,
+        # Context does not change for this
+        book_exec_url: review_issue.book_exec_url,
+        
         citation_author: paper.citation_author
       }
+      # @NeuroLibre -- END
 
       metadata.merge!(editor_info, dates_info)
       metadata[:citation_string] = build_citation_string(metadata)
