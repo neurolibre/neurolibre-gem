@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path "#{File.dirname(__FILE__)}/lib/neurolibre/version"
+require File.expand_path "#{File.dirname(__FILE__)}/lib/theoj/version"
 
 Gem::Specification.new do |s|
   s.name = "neurolibre"
