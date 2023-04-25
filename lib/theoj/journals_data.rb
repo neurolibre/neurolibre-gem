@@ -44,7 +44,7 @@ module Theoj
     },
     neurolibre: {
       doi_prefix: "10.55458",
-      url: "https://neurolibre.org/",
+      url: "https://neurolibre.org",
       name: "NeuroLibre",
       alias: "neurolibre",
       launch_date: "2021-01-01",
@@ -54,13 +54,13 @@ module Theoj
     },
     test_journal: {
       doi_prefix: "10.55458",
-      url: "https://staging.neurolibre.org/",
+      url: "https://neurolibre-test.herokuapp.com",
       name: "NeuroLibre",
       alias: "neurolibre",
       launch_date: "2021-01-01",
       papers_repository: "neurolibre/neurolibre-preprints-testing",
-      reviews_repository: "openjournals/joss-reviews-testing",
-      deposit_url: "https://staging.neurolibre.org/papers/api_deposit"
+      reviews_repository: "neurolibre/neurolibre-reviews-testing",
+      deposit_url: "https://neurolibre-test.herokuapp.com/papers/api_deposit"
     }
   }
 end
