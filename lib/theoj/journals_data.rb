@@ -50,7 +50,7 @@ module Theoj
       launch_date: "2021-01-01",
       papers_repository: "neurolibre/preprints",
       reviews_repository: "neurolibre/neurolibre-reviews",
-      deposit_url: "https://neurolibre-neo.herokuapp.com/papers/api_deposit"
+      deposit_url: "https://neurolibre.org/papers/api_deposit"
     },
     test_journal: {
       doi_prefix: "10.55458",
