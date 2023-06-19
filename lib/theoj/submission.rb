@@ -217,7 +217,7 @@ module Theoj
     private
 
     def build_citation_string(metadata)
-      "#{metadata[:citation_author]}, (#{metadata[:year]}). #{metadata[:title]}. #{metadata[:journal_name]}, #{metadata[:volume]}(#{metadata[:issue]}), #{metadata[:review_issue_id]}, https://doi.org/#{metadata[:doi]}"
+      "#{metadata[:citation_author]}, (#{metadata[:year]}). #{metadata[:title]}. #{metadata[:journal_name]}, #{metadata[:review_issue_id]}, https://doi.org/#{metadata[:doi]}"
     end
 
     def plaintext(t)

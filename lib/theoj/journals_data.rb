@@ -45,7 +45,7 @@ module Theoj
     neurolibre: {
       doi_prefix: "10.55458",
       url: "https://neurolibre.org",
-      name: "NeuroLibre",
+      name: "NeuroLibre Reproducible Preprints",
       alias: "neurolibre",
       launch_date: "2021-01-01",
       papers_repository: "neurolibre/preprints",
