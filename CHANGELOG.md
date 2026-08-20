@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.7 (2026-08-19)
+
+- Paper metadata falls back to myst.yml when a key is absent from the paper's
+  own front matter. A MyST submission declares its title, authors and
+  affiliations in myst.yml for the living preprint, so paper.md need not repeat
+  them; depositing such a paper raised
+  `undefined method 'each' for nil` in `parse_affiliations`.
+- `parse_affiliations` tolerates a paper that names authors and no affiliations
+  instead of raising, and `parse_authors` reports a paper with no authors as a
+  failure rather than a NoMethodError.
+
 ## 1.5.2 (2022-10-29)
 
 - Updated journal data for JuliaCon

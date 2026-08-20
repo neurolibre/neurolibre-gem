@@ -88,6 +88,10 @@ module Theoj
         if path.to_s.strip.empty?
           setup_local_repo
           @paper_path = Theoj::Paper.find_paper_path(local_path)
+          # myst.yml lives at the project root while the paper is often nested
+          # (content/paper.md), so the lookup may walk up -- but no further
+          # than the tree we cloned.
+          @metadata_search_root = local_path
         else
           @paper_path = path
         end
@@ -107,7 +111,19 @@ module Theoj
       def load_metadata
         @paper_metadata ||= if paper_path.nil?
           {}
-        elsif paper_path.include?('.tex')
+        else
+          # A NeuroLibre submission may declare its title, authors and
+          # affiliations in myst.yml instead of repeating them in the paper's
+          # own front matter, so anything absent here is filled from there.
+          Theoj::MystFrontmatter.merge(
+            front_matter_metadata,
+            Theoj::MystFrontmatter.config_text(paper_path, search_root: @metadata_search_root)
+          )
+        end
+      end
+
+      def front_matter_metadata
+        if paper_path.include?('.tex')
           YAML.load_file(paper_path.gsub('.tex', '.yml'))
         else
           YAML.load_file(paper_path)
@@ -118,6 +134,8 @@ module Theoj
         parsed_authors = []
         authors_metadata = @paper_metadata['authors']
         affiliations_metadata = parse_affiliations(@paper_metadata['affiliations'])
+
+        failure "Cannot find the authors of this paper" if authors_metadata.nil?
 
         # Loop through the authors block and build up the affiliation
         authors_metadata.each do |author|
@@ -138,7 +156,12 @@ module Theoj
       def parse_affiliations(affiliations_yaml)
         affiliations_metadata = {}
 
-        affiliations_yaml.each do |affiliation|
+        # A paper may legitimately name authors and no affiliations: myst.yml
+        # permits it and so does a hand-written paper.md. Iterating nil here
+        # raised NoMethodError and took the whole deposit down with it.
+        Array(affiliations_yaml).each do |affiliation|
+          next unless affiliation.is_a?(Hash)
+
           affiliations_metadata[affiliation['index']] = affiliation['name']
         end
 
