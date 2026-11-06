@@ -125,9 +125,20 @@ module Theoj
       def front_matter_metadata
         if paper_path.include?('.tex')
           YAML.load_file(paper_path.gsub('.tex', '.yml'))
-        else
+        elsif front_matter_block?(paper_path)
           YAML.load_file(paper_path)
+        else
+          # No front matter: everything comes from myst.yml. Parsing the file
+          # anyway would read the markdown body as YAML, and prose with a
+          # colon in it ("Note: see below") is a Psych syntax error.
+          nil
         end
+      end
+
+      # Does the paper open with a `---` line, the start of a YAML front matter block?
+      def front_matter_block?(path)
+        first_line = File.open(path, &:gets).to_s
+        first_line.strip == "---"
       end
 
       def parse_authors

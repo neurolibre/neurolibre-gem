@@ -14,7 +14,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require "ostruct"
-require_relative  "../lib/theoj.rb"
+require_relative "../lib/neurolibre.rb"
 Dir["#{File.expand_path '../support', __FILE__}/**/*.rb"].sort.each { |f| require f }
 
 RSpec.configure do |config|

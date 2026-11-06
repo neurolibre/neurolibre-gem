@@ -182,3 +182,47 @@ describe Theoj::Paper do
 
   end
 end
+
+describe "a paper.md whose metadata lives in myst.yml" do
+  require "tmpdir"
+
+  MYST_YML_FOR_PAPER = <<~YAML
+    version: 1
+    project:
+      title: Living Preprint
+      authors:
+        - name: Grace Hopper
+          affiliations: navy
+      affiliations:
+        - id: navy
+          institution: US Navy
+  YAML
+
+  def submission_with(paper_text)
+    dir = Dir.mktmpdir
+    File.write(File.join(dir, "myst.yml"), MYST_YML_FOR_PAPER)
+    path = File.join(dir, "paper.md")
+    File.write(path, paper_text)
+    Theoj::Paper.new("repository", "branch", path)
+  end
+
+  it "falls back to myst.yml when paper.md has no front matter at all" do
+    # Prose is not YAML: a line such as "Note: see below" is a mapping to Psych,
+    # and a second colon on it is a syntax error. The body must never be parsed.
+    paper = submission_with("# Living Preprint\n\nNote: this sentence: has two colons.\n")
+
+    expect(paper.title).to eq("Living Preprint")
+    expect(paper.authors.map(&:name)).to eq(["Grace Hopper"])
+  end
+
+  it "parses only the front matter block, not the body" do
+    paper = submission_with("---\ntitle: Own Title\n---\n\nResults: mean: 3\n")
+
+    expect(paper.title).to eq("Own Title")
+    expect(paper.authors.map(&:name)).to eq(["Grace Hopper"])
+  end
+
+  it "still reports a front matter block that is malformed" do
+    expect { submission_with("---\ntitle: Foo\nabc: x: y\n---\n") }.to raise_error(Psych::SyntaxError)
+  end
+end

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5.8 (2026-11-06)
+
+- A paper.md with no front matter block takes all of its metadata from
+  myst.yml. The 1.5.7 fallback was never reached for such a paper: the whole
+  file was handed to the YAML parser, which read the markdown body as YAML and
+  raised `mapping values are not allowed in this context` on the first line
+  of prose with a colon in it.
+- The spec helper requires the gem's own entry file, so the suite loads again.
+
 ## 1.5.7 (2026-08-19)
 
 - Paper metadata falls back to myst.yml when a key is absent from the paper's
